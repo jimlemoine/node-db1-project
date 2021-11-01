@@ -16,12 +16,15 @@ const create = async account => {
   return newAccount
 }
 
-const updateById = (id, account) => {
-  // DO YOUR MAGIC
+const updateById = async (id, account) => {
+  await db('accounts').where('id', id).update(account)
+  return getById(id)
 }
 
-const deleteById = id => {
-  // DO YOUR MAGIC
+const deleteById = async id => {
+  const deletedAccount = await getById(id)
+  await db('accounts').where('id', id).del()
+  return deletedAccount
 }
 
 module.exports = {
